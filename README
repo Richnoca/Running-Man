@@ -5,26 +5,26 @@ This code:
 - **Predict your race times (5K, 10K, Half Marathon, Marathon) using machine learning**
 - **Explore your run data with simple analytics**
 
-## Files
+Files
 
-### `run_predictor_strava.py`
+`run_predictor_strava.py`
 - Connects to the Strava API (using credentials and refresh token)
 - Downloads your 30 most recent runs and stores them in a local SQLite database (`runs.db`)
 - Trains a regression model on your run history
 - Predicts your likely finish times for common race distances (5K, 10K, 13.1 Miles, 26.2 Miles).
 
-### `answer.py`
+`answer.py`
 - Connects to the same `runs.db` database
 - Answers interesting questions about your run data, such as:
   - What is your average run distance?
   - What are your 10 most common run distances?
 
-## Setup
+Setup
 
 1. **Install dependencies:**
-   ```
+   
    pip install requests scikit-learn numpy
-   ```
+   
 
 2. **Get your Strava API credentials:**
    - Register an app at [Strava API settings](https://www.strava.com/settings/api)
@@ -35,19 +35,20 @@ This code:
    - Edit the file and fill in your Strava credentials at the top.
 
 4. **Run the predictor:**
-   ```
+   
    python run_predictor_ml_strava.py
-   ```
+   
    - This will fetch your runs, update the database, and print your predicted race times.
 
 5. **Explore your data:**
-   ```
+   
    python answer.py
-   ```
+   
    - This will print your average run distance and your most common run distances.
 
-## Notes
+Notes
 
+- Utilizes Python NumPy for computing.
 - Database provided by SQLite
 - Machine learning algorithm is implemented by using the LinearRegression class from scikit-learn Python libray.
 - Struggling with connecting to Strava API consistently getting Token errors
