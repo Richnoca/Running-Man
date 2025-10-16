@@ -5,9 +5,9 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 
 # --- CONFIGURATION ---
-CLIENT_ID = "179724"  # Replace with your Strava client ID
-CLIENT_SECRET = "3f77e89798fed5b04de5c58d355e50cd28ea443d"  # Replace with your Strava client secret
-REFRESH_TOKEN = "f24322e4d7748df3f61f7518ab404111594f3226"  # Replace with your Strava refresh token
+CLIENT_ID = "179724"
+CLIENT_SECRET = "3f77e89798fed5b04de5c58d355e50cd28ea443d"
+REFRESH_TOKEN = "3c9a730548762f8b0e8816f60ad8d99e00108afc" 
 DB_PATH = "runs.db"
 NUM_ACTIVITIES = 30  # Number of recent activities to fetch
 
@@ -21,31 +21,13 @@ def refresh_access_token(client_id, client_secret, refresh_token):
         "refresh_token": refresh_token
     }
     response = requests.post(url, data=payload)
+    print("DEBUG: Token response:", response.status_code, response.text)  # Debug line
     if response.status_code == 200:
         tokens = response.json()
         return tokens["access_token"], tokens["refresh_token"]
     else:
         print("Failed to refresh access token:", response.status_code, response.text)
         exit()
-
-# ...existing code...
-def refresh_access_token(client_id, client_secret, refresh_token):
-    url = "https://www.strava.com/oauth/token"
-    payload = {
-        "client_id": client_id,
-        "client_secret": client_secret,
-        "grant_type": "refresh_token",
-        "refresh_token": refresh_token
-    }
-    response = requests.post(url, data=payload)
-    print("DEBUG: Token response:", response.status_code, response.text)  # Add this line
-    if response.status_code == 200:
-        tokens = response.json()
-        return tokens["access_token"], tokens["refresh_token"]
-    else:
-        print("Failed to refresh access token:", response.status_code, response.text)
-        exit()
-# ...existing code...
 
 # --- FETCH ACTIVITIES FROM STRAVA ---
 def fetch_strava_runs(access_token, num_activities=30):
