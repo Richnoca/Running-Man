@@ -19,7 +19,10 @@ if __name__ == "__main__":
     cursor = conn.cursor()
 
     avg_distance = get_average_distance(cursor)
+if avg_distance is not None:
     print(f"Average run distance: {avg_distance:.2f} km")
+else:
+    print("No run data found in the database.")
 
     print("\nTop 10 most common run distances (rounded to nearest 0.5 km):")
     for dist, count in get_top_10_common_distances(cursor):
