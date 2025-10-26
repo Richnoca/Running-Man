@@ -13,7 +13,7 @@ Files
 - Trains a regression model on your run history
 - Predicts your likely finish times for common race distances (5K, 10K, 13.1 Miles, 26.2 Miles).
 
-`answer.py`
+`answer.py` 
 - Connects to the same `runs.db` database
 - Answers interesting questions about your run data, such as:
   - What is your average run distance?
