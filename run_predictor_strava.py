@@ -5,9 +5,9 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 
 # --- CONFIGURATION ---
-CLIENT_ID = "179724"
-CLIENT_SECRET = "3f77e89798fed5b04de5c58d355e50cd28ea443d"
-REFRESH_TOKEN = "3c9a730548762f8b0e8816f60ad8d99e00108afc" 
+CLIENT_ID = "xxxxxxxxxxxxxxxxxxxx"
+CLIENT_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+REFRESH_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" 
 DB_PATH = "runs.db"
 NUM_ACTIVITIES = 30  # Number of recent activities to fetch
 
@@ -128,3 +128,4 @@ if __name__ == "__main__":
     for race, km in distances.items():
         pred_sec = model.predict(np.array([[km]]))[0]
         print(f"{race}: {format_time(pred_sec)}")
+
