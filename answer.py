@@ -9,7 +9,7 @@ def get_average_distance(cursor):
     return avg
 
 def get_top_10_common_distances(cursor):
-    cursor.execute("SELECT distance_km FROM runs")
+    cursor.execute("SELECT km FROM runs")
     distances = [round(row[0] * 2) / 2 for row in cursor.fetchall()]  # round to nearest 0.5 km
     counter = Counter(distances)
     return counter.most_common(10)
@@ -29,3 +29,4 @@ else:
         print(f"{dist:.1f} km: {count} runs")
 
     conn.close()
+
