@@ -1,5 +1,7 @@
 import requests
 
+// gets token to add refreshes 
+
 AUTH_CODE = "ec934b41a2822376de68a30d2ee471193cc45f39"
 
 response = requests.post(
