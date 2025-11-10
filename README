@@ -8,10 +8,12 @@ This code:
 Files
 
 `run_predictor_strava.py`
-- Connects to the Strava API (using credentials and refresh token)
-- Downloads your 30 most recent runs and stores them in a local SQLite database (`runs.db`)
-- Trains a regression model on your run history
+- Connects to the Strava API using credentials stored in config.json
+- Fetches your most recent runs and stores them in a local SQLite database (runs.db
+- Computes statistics: Average Distance, Top 10 most common run distances, Fastest Pace
 - Predicts your likely finish times for common race distances (5K, 10K, 13.1 Miles, 26.2 Miles).
+- Trains a linear regression model on your run history
+- Optional visualizations: Scatter plot and Histogram
 
 `answer.py` 
 - Connects to the same `runs.db` database
@@ -19,11 +21,14 @@ Files
   - What is your average run distance?
   - What are your 10 most common run distances?
 
+`answer.py` 
+- Stores your Strava CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN
+
 Setup
 
 1. **Install dependencies:**
    
-   pip install requests scikit-learn numpy
+   pip install requests scikit-learn numpy matplotlib
    
 
 2. **Get your Strava API credentials:**
@@ -48,10 +53,10 @@ Setup
 
 Notes
 
-- Utilizes Python NumPy for computing.
-- Database provided by SQLite
-- Machine learning algorithm is implemented by using the LinearRegression class from scikit-learn Python libray.
-- Struggling with connecting to Strava API consistently getting Token errors
-- The scripts only access your own Strava data (the account that authorized your app).
-- Your run data is stored locally in `runs.db`.
+Uses Python NumPy for calculations
+Uses SQLite for local data storage (runs.db)
+Linear regression model implemented using scikit-learn
+Tokens are automatically refreshed; no need to manually update them after setup
+Scripts only access your own Strava data (the account that authorized your app)
+Visualizations use matplotlib and are optional
 
