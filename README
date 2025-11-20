@@ -2,33 +2,58 @@
 
 This code:
 - **Automatically fetch your recent Strava runs**
-- **Predict your race times (5K, 10K, Half Marathon, Marathon) using machine learning**
-- **Explore your run data with simple analytics**
+- **Predict your race times (5K, 10K, Half Marathon, Marathon) using Riegel-based and regression models**
+- **Interactive GUI dasboard for exploring run data, stats, and trends**
+- **Data export to CSV for further analysis**
+- **Uses SQLite (runs.db) for local data storage**
 
 Files
 
 `run_predictor_strava.py`
-- Connects to the Strava API using credentials stored in config.json
-- Fetches your most recent runs and stores them in a local SQLite database (runs.db
-- Computes statistics: Average Distance, Top 10 most common run distances, Fastest Pace
+- Entry point for launching the GUI or CLI workflow
+- Fetches your most recent runs and stores them in a local SQLite database (runs.db)
+- Computes key statistics:
+    - Total runs, average distance, total distance, longest run
+    - Fastest pace (sec/km)
+    - Most common distances
+    - Training load estimates: Fitness and Fatigue
 - Predicts your likely finish times for common race distances (5K, 10K, 13.1 Miles, 26.2 Miles).
-- Trains a linear regression model on your run history
-- Optional visualizations: Scatter plot and Histogram
+- Optional visualizations
+    - Monthly total distance (bar chart)
+    - Pace vs Distance Scatter plot
+- GUI buttons: Refresh from Strava, Predict Standard Races, Export CSV, Show Trends
 
-`answer.py` 
-- Connects to the same `runs.db` database
-- Answers interesting questions about your run data, such as:
-  - What is your average run distance?
-  - What are your 10 most common run distances?
+`ui.py` 
+- Implements the ttkbootstrap GUI for the dashboard
+- Displays:
+    - Key stats in a text box
+    - Race time predictions in a list
+    - Plots for monthly totals and pace scatter
+- Handles background fetching via threads
+- CSV export of all runs
 
-`answer.py` 
-- Stores your Strava CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN
+`analysis.py` 
+- Computes statistics, training loads, and Riegel-based race predictions
+- Includes fallback linear regression for custom distances
+- Provides utilities for pace calculations, best-effort windows, and formatting times
+
+`fetcher.py`
+- Contains StravaFetcher class
+- refreshes access token automatically using config.json
+- Fetches runs from Stava API and inserts them into SQLite DB
+- Ensures dates and distances are correctly stored for analysis and plotting
+
+`answer.py`
+- CLI-only tool for exploring the database (optional)
+
+`config.json`
+- Stores Strava API credentials
 
 Setup
 
 1. **Install dependencies:**
    
-   pip install requests scikit-learn numpy matplotlib
+   pip install requests scikit-learn numpy matplotlib ttkbootstrap
    
 
 2. **Get your Strava API credentials:**
@@ -36,27 +61,27 @@ Setup
    - Authorize your app with the `activity:read_all` scope
    - Obtain your `CLIENT_ID`, `CLIENT_SECRET`, and `REFRESH_TOKEN`
 
-3. **Configure `run_predictor_ml_strava.py`:**
-   - Edit the file and fill in your Strava credentials at the top.
+3. **Configure config.json:**
+   - Fill in your Strava credentials
 
-4. **Run the predictor:**
+4. **Run the GUI APP:**
    
-   python run_predictor_ml_strava.py
+   python run_predictor_strava.py
    
    - This will fetch your runs, update the database, and print your predicted race times.
 
-5. **Explore your data:**
+5. **Explore your data via GUI:**
+  - Buttons allow you to:
+    - Reresh Strava runs
+    - Predict race times
+    - Export run data to CSV
+    - Show trends and plots
    
-   python answer.py
-   
-   - This will print your average run distance and your most common run distances.
 
 Notes
 
-Uses Python NumPy for calculations
-Uses SQLite for local data storage (runs.db)
-Linear regression model implemented using scikit-learn
-Tokens are automatically refreshed; no need to manually update them after setup
-Scripts only access your own Strava data (the account that authorized your app)
-Visualizations use matplotlib and are optional
-
+Uses SQLite (runs.db) for local data storage
+Uses NumPy for calculations and scikit-learn for regression models
+Access tokens are automatically refreshed; no manual updates needed
+GUI visualizations use Matplotlib embedded in Tkinter via ttkbootstrap
+Only accesses data from the authorized Strava account
