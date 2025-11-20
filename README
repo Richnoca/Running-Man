@@ -85,3 +85,4 @@ Uses NumPy for calculations and scikit-learn for regression models
 Access tokens are automatically refreshed; no manual updates needed
 GUI visualizations use Matplotlib embedded in Tkinter via ttkbootstrap
 Only accesses data from the authorized Strava account
+GUI.png has an example output of the GUI
