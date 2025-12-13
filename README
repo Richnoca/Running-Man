@@ -6,6 +6,8 @@ This code:
 - **Interactive GUI dasboard for exploring run data, stats, and trends**
 - **Data export to CSV for further analysis**
 - **Uses SQLite (runs.db) for local data storage**
+- **Has a Personal Record Panel and displays best efforts for common distances**
+- **Rolling weekly mileage plot**
 
 Files
 
